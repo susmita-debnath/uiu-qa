@@ -79,7 +79,7 @@ jQuery(document).ready(function($){
 		*/
 		if( false === validatePassword(password) ) valid = false;
 		
-		// Retype check
+		// Retype password check
 		
 		console.log(valid);
 		console.log(101);
