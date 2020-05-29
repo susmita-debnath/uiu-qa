@@ -80,6 +80,15 @@ jQuery(document).ready(function($){
 		if( false === validatePassword(password) ) valid = false;
 		
 		// Retype password check
+		if( password != retype ) {
+			$('#error').html('<p class="alert alert-danger">Password isn't same.</p>');
+			
+			$('html, body').animate({
+				scrollTop: $('#error').offset().top
+			});
+			
+			return false;
+		}
 		
 		console.log(valid);
 		console.log(101);
