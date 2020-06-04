@@ -47,13 +47,18 @@ function validatePassword(password) {
 
 jQuery(document).ready(function($){
 	
-	/*document.getElementById('btn').addEventListener('click', function(){
-		
-	});*/
+	var pwerr = '<p>Please provide the password in following format:</p>';
+		pwerr += '<ul>';
+			pwerr += '<li>Minimum 8 characters</li>';
+			pwerr += '<li>Minimum 1 number</li>';
+			pwerr += '<li>Minimum 1 uppercase letter & 1 lowercase letter </li>';
+			pwerr += '<li>Minimum 1 special character</li>';
+		pwerr += '</ul>';
+	var errors = ['<p>All fields are required.</p>', '<p>Email is invalid.</p>', pwerr, '<p>Password is not same.</p>'];
 
 	$('#btn').click(function() {
-		
-		//var email = document.getElementById('email').value;
+		$('#error').html('');
+		var errorStatus = [];
 		var email = $('#email').val();		
 		var user_id = $('#user_id').val();		
 		var name = $('#name').val();
@@ -63,39 +68,32 @@ jQuery(document).ready(function($){
 		//console.log(name);
 		
 		// Field common validation
-		if( email == '' || user_id == '' || name == '' || password == '' || retype == '' ) valid = false;
-		
-		
+		if( email == '' || user_id == '' || name == '' || password == '' || retype == '' ) errorStatus.push(0);
+				
 		// Email validation
-		if( false === validateEmail(email) ) valid = false;
+		if( false === validateEmail(email) ) errorStatus.push(1);
 			
-		// password field validation
-		/**
-		1. Minimum 8 characters
-		2. Minimum 2 letters
-		3. Minimum 1 number
-		4. Minimum 1 capital letter & 1 small letter
-		5. Minimum 1 special character 
-		*/
-		if( false === validatePassword(password) ) valid = false;
+		if( false === validatePassword(password) ) errorStatus.push(2);
 		
 		// Retype password check
-		if( password !== retype ) {
-			valid = false;
-		}
+		if( password !== retype ) errorStatus.push(3);
 		
-		console.log(valid);
-		console.log(101);
-		
-		if( false === valid ) {
-			$('#error').html('<p class="alert alert-danger">All fields are required.</p>');
+		if( errorStatus.length !== 0 ) {
+			var i;
+			for( i = 0; i < errorStatus.length; i++ ) {
+				$('#error').append(errors[errorStatus[i]]);
+			}
+			
+			$('#error').addClass('alert alert-danger');
 			
 			$('html, body').animate({
 				scrollTop: $('#error').offset().top
 			});
 			
 			return false;
-		}
+		} 
+		
+		$('#error').removeClass('alert alert-danger');		
 		
 		return false;
 	});
