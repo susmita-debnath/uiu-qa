@@ -1,12 +1,23 @@
 function validateEmail(email) {
+	// Regex for email validation.
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
 }
 
-function letterChecking(l, password) {
+/**
+  * Checks if there are uppercase and lowercase letter in the password.
+  * 
+  * @since 1.1.2
+  *
+  * @param length   INT    Length of the password.
+  * @param password STRING Given user password
+  *
+  * @return var BOOL True if there are one uppercase and one lowercase letter, false otherwise.
+  */
+function letterChecking(length, password) {
 	var i, flag1 = 0, flag2 = 0;
 	
-	for ( i = 0; i < l; i++ ) {
+	for ( i = 0; i < length; i++ ) {
 		if ( flag1 == 0 && password[i] >= 'A' && password[i] <= 'Z' ) flag1 = 1;
 		if ( flag2 == 0 && password[i] >= 'a' && password[i] <= 'z' ) flag2 = 1;
 		
@@ -67,7 +78,7 @@ jQuery(document).ready(function($){
 		var valid = true;
 		//console.log(name);
 		
-		// Field common validation
+		// Common Field validation.
 		if( email == '' || user_id == '' || name == '' || password == '' || retype == '' ) errorStatus.push(0);
 				
 		// Email validation
@@ -95,7 +106,7 @@ jQuery(document).ready(function($){
 		
 		$('#error').removeClass('alert alert-danger');		
 		
-		return false;
+		
 	});
 	
 });
